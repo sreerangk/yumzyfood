@@ -77,9 +77,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'foodOnline',
-        'USER': 'Mysql',
+        'USER': 'root',
         'PASSWORD': '',
-        'HOST':'lacalhost',
+        'HOST':'localhost',
+        'PORT': '3306',
     }
 }
 
