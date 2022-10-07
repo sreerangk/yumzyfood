@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .utils import detectUser, send_verification_email
 from django.template.defaultfilters import slugify
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+
 from django.core.exceptions import PermissionDenied
 
 # Create your views here.
@@ -56,7 +59,7 @@ def registerUser(request):
             mail_subject = 'Please activate your account'
             email_template = 'accounts/emails/account_verification_email.html'
             send_verification_email(request, user, mail_subject, email_template)
-            messages.success(request, 'Your account has been registered sucessfully!')
+            messages.success(request, 'Your account has been registered sucessfully check your mail!')
             return redirect('registerUser')
         else:
             print('invalid form')
