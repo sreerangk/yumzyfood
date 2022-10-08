@@ -2,7 +2,7 @@
     <div class="user-nav-list">
         <ul>
             <li class="{% if '/vendorDashboard/' == request.path or '/vendor/' == request.path %}active{% endif %}"><a href="{% url 'vendorDashboard' %}"><i class="icon-dashboard3"></i>Dashboard</a></li>
-            <li class="{% if 'profile' in request.path %}active{% endif %}"><a href=""><i class="icon-building"></i>My Restaurant</a></li>
+            <li class="{% if 'profile' in request.path %}active{% endif %}"><a href="{% url 'vprofile' %}"><i class="icon-building"></i>My Restaurant</a></li>
             <li class="{% if 'menu-builder' in request.path %}active{% endif %}"><a href=""><i class="icon-menu5"></i>Menu Builder</a></li>
             <li class="{% if 'opening-hour' in request.path %}active{% endif %}"><a href=""><i class="icon-menu5"></i>Opening Hours</a></li>
             <li class="{% if '/my_orders/' in request.path %}active{% endif %}"><a href=""><i class="icon-add_shopping_cart"></i>Orders</a></li>
