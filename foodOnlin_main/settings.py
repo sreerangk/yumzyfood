@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'vendor',
+    'menu',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'accounts.context_processors.get_vendor'
+                'accounts.context_processors.get_vendor',
+                'accounts.context_processors.get_google_api',
             ],
         },
     },
@@ -156,3 +158,4 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL =  'Online Marketplace <helpa077637@gmail.com>'
 
 
+GOOGLE_API_KEY = 'AIzaSyATQ_baONWNv7I-V-oGOrtMxc_0zpzxWd8'
