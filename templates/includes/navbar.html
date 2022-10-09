@@ -43,7 +43,7 @@
                             <a class="cs-color cs-popup-joinus-btn login-popup text-danger" href="{% url 'logout' %}">Logout</a>
                             {% else %}
                             <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'login' %}">Login</a> / 
-                                <span><a href="{% url 'registerUser'%}" class="cs-color cs-popup-joinus-btn login-popup ml-0">Register</a></span><a class="get-start-btn" href="{% url 'registerVendor' %}">
+                                <span><a href="{% url 'registerUser'%}" class="cs-color cs-popup-joinus-btn login-popup ml-0">Register</a></span><a class="btn btn-danger" href="{% url 'registerVendor' %}">
                                 Register
                                 Restaurant </a>
                             {% endif %}
