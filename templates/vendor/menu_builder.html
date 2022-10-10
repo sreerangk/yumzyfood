@@ -42,7 +42,7 @@
                               </table>
                             {% else %}
                                 <h5 class="text-center">No categories found.</h5>
-                                <div class="text-center"><a href="" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add Category</a></div>
+                                <div class="text-center"><a href="{% url 'add_category' %}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add Category</a></div>
                             {% endif %}
                         </div>
                     </div>
