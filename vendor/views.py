@@ -1,8 +1,11 @@
 from gettext import Catalog
 from unicodedata import category
 from django.shortcuts import get_object_or_404,render,redirect
+
+
 from .forms import VendorForm
 from accounts.forms import UserProfileForm
+from django.db import IntegrityError
 
 from menu.forms import CategoryForm, FoodItemForm
 from .models import UserProfile
@@ -82,16 +85,20 @@ def fooditems_by_category(request, pk=None):
 def add_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
-        if form.is_valid():
-            category_name = form.cleaned_data['category_name']
-            category = form.save(commit=False)
-            category.vendor = get_vendor(request)
-            category.slug = slugify(category)
-            form.save()
-            messages.success(request, 'Category added successfully!')
-            return redirect('menu_builder')
-        else:
+        try:      
+            if form.is_valid():
+                category_name = form.cleaned_data['category_name']
+                category = form.save(commit=False)
+                category.vendor = get_vendor(request)
+                category.slug = slugify(category_name)
+                category.save()
+                messages.success(request, 'Category added successfully!')
+                return redirect('menu_builder')
+            
+        except IntegrityError as e:
             print(form.errors)
+            messages.error(request, 'category name already exists!')
+            return redirect('add_category')
 
     else:
         form = CategoryForm()
@@ -140,16 +147,21 @@ def delete_category(request, pk=None):
 def add_food(request):
     if request.method == 'POST':
         form = FoodItemForm(request.POST, request.FILES)
-        if form.is_valid():
-            foodtitle = form.cleaned_data['food_title']
-            food = form.save(commit=False)
-            food.vendor = get_vendor(request)
-            food.slug = slugify(foodtitle)
-            form.save()
-            messages.success(request, 'Food Item added successfully!')
-            return redirect('fooditems_by_category', food.category.id)
-        else:
+        try:
+            if form.is_valid():
+                foodtitle = form.cleaned_data['food_title']
+                food = form.save(commit=False)
+                food.vendor = get_vendor(request)
+                food.slug = slugify(foodtitle)
+                form.save()
+                messages.success(request, 'Food Item added successfully!')
+                return redirect('fooditems_by_category', food.category.id)
+            else:
+                print(form.errors)
+        except IntegrityError as e:
             print(form.errors)
+            messages.error(request, 'food name already exists!')
+            return redirect('add_food')
     else:
         form = FoodItemForm()
         # modify this form
