@@ -18,7 +18,7 @@
 					</div>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-					<div class="main-search fancy bg-holder">
+					<div class="main-search fancy ">
 						<form action="" method="GET">
 							<div class="row">
 								<div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
@@ -86,9 +86,9 @@
 							<li class="has-border">
 								<figure>
 									{% if vendor.user_profile.profile_picture %}
-									<a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{{ vendor.user_profile.profile_picture.url }}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
+									<a href=""><img src="{{ vendor.user_profile.profile_picture.url }}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
 									{% else %}
-									<a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{% static 'images/default-profile.png' %}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
+									<a href=""><img src="{% static 'images/default-profile.png' %}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
 									{% endif %}
 								</figure>
 							</li>
@@ -118,7 +118,7 @@
 								<div class="list-post featured">
 									<div class="img-holder">
 										<figure>
-											<a href="{% url 'vendor_detail' vendor.vendor_slug %}">
+											<a href="">
 												{% if vendor.user_profile.profile_picture %}
 												<img src="{{ vendor.user_profile.profile_picture.url }}" class="img-thumb wp-post-image" alt="">
 												{% else %}
@@ -141,7 +141,7 @@
 										
 										<div class="post-title">
 											<h5>
-												<a href="{% url 'vendor_detail' vendor.vendor_slug %}">{{ vendor }}</a>
+												<a href="">{{ vendor }}</a>
 											</h5>
 										</div>
 										{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pin_code %}
