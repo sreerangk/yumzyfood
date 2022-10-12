@@ -28,23 +28,16 @@
 	<script src="{% static 'js/bootstrap.js' %}"></script>
 
 	
-	{% if '/profile/' in request.path %}
+
 	<script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_API_KEY}}&libraries=places&callback=initAutoComplete" defer></script>
-	{% endif %}
+
+	<!-- sweetalert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="{% static 'js/custom.js' %}"></script>
 	
-	<!-- Include the PayPal JavaScript SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}&currency=USD"></script>
 
-	<!-- Include Datatables plugin script and css -->
-	<link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-	<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-	<script>
-		$(document).ready( function () {
-			$('#myOrdersTable').DataTable();
-		} );
-	</script>
+
+
 
 	<style>
 		body, .main-section p, .mce-content-body p{
