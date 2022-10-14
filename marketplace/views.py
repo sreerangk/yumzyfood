@@ -1,14 +1,19 @@
 from multiprocessing import context
 from multiprocessing.dummy import JoinableQueue
+import re
 from django.http import HttpRequest, JsonResponse
 from django.shortcuts import HttpResponse, render,get_object_or_404
+
+from vendor.views import opening_hours
 from .context_processors import get_cart_counter, get_cart_amounts
-from vendor.models import Vendor
+from vendor.models import OpeningHour, Vendor
 from menu.models import Category, FoodItem 
 from django.db.models import Prefetch 
 from .models import Cart
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+
+from datetime import date, datetime
 # Create your views here.
 
 def marketplace(request):
@@ -29,15 +34,42 @@ def vendor_detail(request, vendor_slug):
             queryset = FoodItem.objects.filter(is_available=True)
         )
     )
+    
+   
+    opening_hours = OpeningHour.objects.filter(vendor=vendor).order_by('day', 'from_hour')
+
+    #check current day's opening hours.
+    today_date = date.today()
+    today = today_date.isoweekday()
+
+    current_opening_hours = OpeningHour.objects.filter(vendor=vendor, day=today)
+    new = datetime.now()
+    current_time = new.strftime("%H:%M:%S") 
+    
+    is_open = None
+    for i in current_opening_hours:
+        start = str(datetime.strptime(i.from_hour, "%I:%M %p").time())
+        end = str(datetime.strptime(i.to_hour, "%I:%M %p").time())
+        
+        if current_time > start and current_time < end:
+            is_open = True 
+            break
+        else:
+            is_open = False
+        
+        
+    
     if request.user.is_authenticated:
-        cart_item =Cart.objects.filter(user=request.user)
+        cart_item = Cart.objects.filter(user=request.user)
     else:
         cart_items = None
     context = {
         'vendor': vendor,
         'categories' : categories,
+        'opening_hours': opening_hours,
+        'current_opening_hours': current_opening_hours,
     }
-    return render(request, 'marketplace/vendor_detail.html',context)
+    return render(request, 'marketplace/vendor_detail.html', context)
 
 def add_to_cart(request, food_id):
     if request.user.is_authenticated:
