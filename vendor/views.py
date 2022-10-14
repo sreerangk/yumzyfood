@@ -1,7 +1,8 @@
 from gettext import Catalog
 from multiprocessing import context
 from unicodedata import category
-from django.http import HttpResponse
+from urllib import response
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404,render,redirect
 
 
@@ -218,4 +219,25 @@ def opening_hours(request):
 
 
 def add_opening_hours(request):
-    return HttpResponse('Add opening hour')
+    # hadel the data and save the in side the database
+    if request.user.is_authenticated:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == 'POST':
+            day = request.POST.get('day')
+            from_hour = request.POST.get('from_hour')
+            to_hour = request.POST.get('to_hour')
+            is_closed = request.POST.get('is_closed')
+            
+            try:
+                hour = OpeningHour.objects.create(vendor=get_vendor(request), day=day, from_hour=from_hour, to_hour=to_hour, is_closed=is_closed)
+                if hour:
+                    day = OpeningHour.objects.get(id=hour.id)
+                    if day.is_closed:
+                        response = {'status': 'success', 'id': hour.id, 'day': day.get_day_display(), 'is_closed': 'Closed'}
+                    else:
+                        response = {'status': 'success', 'id': hour.id, 'day': day.get_day_display(), 'from_hour': hour.from_hour, 'to_hour': hour.to_hour}
+                return JsonResponse(response)
+            except IntegrityError as e:
+                response = {'status': 'failed', 'message': from_hour+'-'+to_hour+' already exists for this day!'}
+                return JsonResponse(response)
+        else:
+            HttpResponse('Invalid request')
