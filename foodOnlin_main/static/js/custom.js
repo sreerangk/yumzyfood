@@ -220,4 +220,18 @@ $(document).ready(function(){
         $('#tax').html(tax)
         $('#total').html(grand_total)
     }
+
+    $('.add_hour').on('click',function(e){
+        e.preventDefault();
+        var day = document.getElementById('id_day').value
+        var from_hour = document.getElementById('id_from_hour').value
+        var to_hour = document.getElementById('to_hour').value
+        var is_closed = document.getElementById('id_is_closed').checked
+        var csrf_token = $('input[name=csrfmiddlewaretoken]').val()
+
+
+        console.log()
+
+    })
+    // document ready close
 });

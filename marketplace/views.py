@@ -1,3 +1,4 @@
+from multiprocessing import context
 from multiprocessing.dummy import JoinableQueue
 from django.http import HttpRequest, JsonResponse
 from django.shortcuts import HttpResponse, render,get_object_or_404
@@ -7,6 +8,7 @@ from menu.models import Category, FoodItem
 from django.db.models import Prefetch 
 from .models import Cart
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 # Create your views here.
 
 def marketplace(request):
@@ -119,5 +121,21 @@ def delete_cart(request, cart_id):
 
 
 def search(request):
+    address = request.GET['address']
+    latitude = request.GET['lat']
+    longitude = request.GET['lng']
+    radius = request.GET['radius']
+    keyword = request.GET['keyword']
+
+    #get vendor ids that has food item user islooking for 
+    fetch_vendors_by_fooditems = FoodItem.objects.filter(food_title__icontains=keyword, is_available=True).values_list('vendor', flat=True)
     
-    return HttpResponse('search page')
+    vendors = Vendor.objects.filter(Q(id__in=fetch_vendors_by_fooditems)| Q(vendor_name__icontains=keyword, is_approved=True, user__is_active=True))
+
+
+    vendor_count = vendors.count()
+    context = {
+        'vendors' : vendors,
+        'vendor_count' : vendor_count,
+    }
+    return render(request, 'marketplace/listings.html' ,context)

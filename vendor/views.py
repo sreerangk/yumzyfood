@@ -1,14 +1,16 @@
 from gettext import Catalog
+from multiprocessing import context
 from unicodedata import category
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404,render,redirect
 
 
-from .forms import VendorForm
+from .forms import VendorForm ,OpeningHourForm
 from accounts.forms import UserProfileForm
 from django.db import IntegrityError
 
 from menu.forms import CategoryForm, FoodItemForm
-from .models import UserProfile
+from .models import OpeningHour, UserProfile
 from .models import Vendor
 
 from django.contrib import messages
@@ -85,22 +87,18 @@ def fooditems_by_category(request, pk=None):
 def add_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
-        try:      
-            if form.is_valid():
-                category_name = form.cleaned_data['category_name']
-                category = form.save(commit=False)
-                category.vendor = get_vendor(request)
-                
-                category.save() #her catagory id will generated
-                category.slug = slugify(category_name)+'-'+str(category.id) #chiken -15
-                category.save() 
-                messages.success(request, 'Category added successfully!')
-                return redirect('menu_builder')
+        if form.is_valid():
+            category_name = form.cleaned_data['category_name']
+            category = form.save(commit=False)
+            category.vendor = get_vendor(request)
             
-        except IntegrityError as e:
+            category.save() # here the category id will be generated
+            category.slug = slugify(category_name)+'-'+str(category.id) # chicken-15
+            category.save()
+            messages.success(request, 'Category added successfully!')
+            return redirect('menu_builder')
+        else:
             print(form.errors)
-            messages.error(request, 'category name already exists!')
-            return redirect('add_category')
 
     else:
         form = CategoryForm()
@@ -108,7 +106,6 @@ def add_category(request):
         'form': form,
     }
     return render(request, 'vendor/add_category.html', context)
-
 
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
@@ -208,3 +205,17 @@ def delete_food(request, pk=None):
     food.delete()
     messages.success(request, 'Food Item has been deleted successfully!')
     return redirect('fooditems_by_category', food.category.id)
+
+
+def opening_hours(request):
+    opening_hour = OpeningHour.objects.filter(vendor=get_vendor(request))
+    form = OpeningHourForm()
+    context = {
+        'form' : form,
+        'opening_hour' : opening_hour,
+    }
+    return render(request, 'vendor/opening_hours.html',context)
+
+
+def add_opening_hours(request):
+    return HttpResponse('Add opening hour')
