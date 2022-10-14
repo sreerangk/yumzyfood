@@ -209,13 +209,13 @@ def delete_food(request, pk=None):
 
 
 def opening_hours(request):
-    opening_hour = OpeningHour.objects.filter(vendor=get_vendor(request))
+    opening_hours = OpeningHour.objects.filter(vendor=get_vendor(request))
     form = OpeningHourForm()
     context = {
         'form' : form,
-        'opening_hour' : opening_hour,
+        'opening_hours' : opening_hours,
     }
-    return render(request, 'vendor/opening_hours.html',context)
+    return render(request, 'vendor/opening_hours.html', context)
 
 
 def add_opening_hours(request):
@@ -241,3 +241,13 @@ def add_opening_hours(request):
                 return JsonResponse(response)
         else:
             HttpResponse('Invalid request')
+            
+            
+            
+def remove_opening_hours(request, pk=None):
+    if request.user.is_authenticated:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' :
+            hour = get_object_or_404(OpeningHour, pk=pk)
+            hour.delete()
+            return JsonResponse({'status': 'success', 'id': pk})
+        
