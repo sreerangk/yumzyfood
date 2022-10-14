@@ -218,6 +218,6 @@ $(document).ready(function(){
         if(window.location.pathname == '/cart/')
         $('#subtotal').html(subtotal)
         $('#tax').html(tax)
-        $('#toatal').html(grand_total)
+        $('#total').html(grand_total)
     }
 });

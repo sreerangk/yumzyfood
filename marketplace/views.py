@@ -90,6 +90,9 @@ def decrease_cart(request, food_id):
         
     else:
         return JsonResponse({'status': 'login_required', 'message': 'Please login to continue'})
+    
+    
+    
 @login_required(login_url = 'login')
 def cart(request):
     cart_items = Cart.objects.filter(user=request.user).order_by('created_at')
@@ -113,3 +116,8 @@ def delete_cart(request, cart_id):
                 return JsonResponse({'status': 'Failed', 'message': 'Cart Item does not exist!'})
         else:
             return JsonResponse({'status': 'Failed', 'message': 'Invalid request!'})
+
+
+def search(request):
+    
+    return HttpResponse('search page')
