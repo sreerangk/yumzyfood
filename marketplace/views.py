@@ -43,22 +43,8 @@ def vendor_detail(request, vendor_slug):
     today = today_date.isoweekday()
 
     current_opening_hours = OpeningHour.objects.filter(vendor=vendor, day=today)
-    new = datetime.now()
-    current_time = new.strftime("%H:%M:%S") 
-    
-    is_open = None
-    for i in current_opening_hours:
-        start = str(datetime.strptime(i.from_hour, "%I:%M %p").time())
-        end = str(datetime.strptime(i.to_hour, "%I:%M %p").time())
-        
-        if current_time > start and current_time < end:
-            is_open = True 
-            break
-        else:
-            is_open = False
-        
-        
-    
+
+ 
     if request.user.is_authenticated:
         cart_item = Cart.objects.filter(user=request.user)
     else:

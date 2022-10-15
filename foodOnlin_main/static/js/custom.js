@@ -97,6 +97,7 @@ $(document).ready(function(){
                 }else{
                     $('#cart_counter').html(response.cart_counter['cart_count']);
                     $('#qty-'+food_id).html(response.qty);
+                    
 
                     // subtotal , tax and grand total 
                     applyCartAmounts(
