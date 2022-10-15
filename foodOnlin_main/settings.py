@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'menu',
     'marketplace',
     'customers',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -163,4 +164,8 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL =  'Online Marketplace <helpa077637@gmail.com>'
 
 
-GOOGLE_API_KEY = 'AIzaSyC4yTudrg9pTcB2khAgrbCMBfVvbviOhVU'
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+
+
+
+PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
