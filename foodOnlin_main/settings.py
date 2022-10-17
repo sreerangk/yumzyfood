@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'marketplace',
     'customers',
     'orders',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -88,12 +89,13 @@ WSGI_APPLICATION = 'foodOnlin_main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        #'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
-        'PASSWORD': '',
+        'PASSWORD': config('DB_PASSWORD'),
         'HOST':config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+       
     }
 }
 
@@ -160,14 +162,17 @@ MESSAGE_TAGS = {
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD =   config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL =  'Online Marketplace <helpa077637@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Online Marketplace <helpa077637@gmail.com>'
 
 
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 
-
+#GDALL PATH
+os.environ['PATH'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo') + ';' + os.environ['PATH']
+os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\data\proj') + ';' + os.environ['PATH']
+GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\gdal304.dll')
 
 PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
 
