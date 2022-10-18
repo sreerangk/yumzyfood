@@ -186,7 +186,7 @@ $(document).ready(function(){
                     applyCartAmounts(
                         response.cart_amount['subtotal'],
                         response.cart_amount['tax_dict'],
-                        response.cart_amount['grand_total'],
+                        response.cart_amount['grand_total']
                     )
                     removeCartItem(0, cart_id);
                     checkEmptyCart();
