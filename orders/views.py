@@ -159,5 +159,5 @@ def order_complete(request):
         } 
         return render(request, 'orders/order_complete.html', context)
     except:
-        return  render(request, 'orders/order_complete.html')        
+        return  render('home')        
    
