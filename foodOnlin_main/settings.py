@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'customers',
     'orders',
     'django.contrib.gis',
+    'customadmin',
 ]
 
 MIDDLEWARE = [

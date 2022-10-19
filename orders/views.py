@@ -118,11 +118,11 @@ def payments(request):
         for i in cart_items:
             if i.fooditem.vendor.user.email not in to_emails: 
                 to_emails.append(i.fooditem.vendor.user.email)
-
-   
+  
         context = {
             'order': order,
             'to_email': to_emails,
+
         }
         send_notification(mail_subject, mail_template, context)
 
@@ -150,14 +150,16 @@ def order_complete(request):
         for item in ordered_food:
             subtotal += (item.price * item.quantity)
         
-      
+
         context = {
             'order': order,
             'ordered_food': ordered_food, 
             'subtotal': subtotal,
+           
+          
    
         } 
         return render(request, 'orders/order_complete.html', context)
     except:
-        return  render('home')        
+        return redirect('home')        
    
