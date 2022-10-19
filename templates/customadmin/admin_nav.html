@@ -11,6 +11,7 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
         <link href="{% static 'stat/css/styles.css' %}" rel="stylesheet" />
+       
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -57,7 +58,7 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="">Users</a>
+                                    <a class="nav-link" href="{% url 'user_edit' %}">Users</a>
                                     <a class="nav-link" href="">Orders</a>
                                 </nav>
                             </div>

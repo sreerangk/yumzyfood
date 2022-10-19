@@ -1,0 +1,97 @@
+
+
+{% extends 'customadmin/admin_nav.html' %}
+
+
+
+
+{% load static %}
+
+    
+    
+{% block content %}
+
+
+<!---end of navbar-->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">User</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{% url 'admin_index' %}">HomePage</a></li>
+                            <li class="breadcrumb-item active">User</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-body"> 
+                                {% for message in messages %}
+                                <div id="message" class="container">
+                                <li {% if message.tags %} class=" alert alert-{{ message.tags }}"{% endif %} role = "alert">
+                                    {{ message }}</li>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                User Details
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">ID</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">Username</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">First Name</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">Last Name</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">Email</th>
+                                        </tr>
+                                    </thead> 
+                                    <tbody>
+                                        {% for x in user %}
+                                        <tr>
+            
+                                            <th>{{x.id}}</th>
+                                            <td>{{x.username}}</td>
+                                            <td>{{x.first_name}}</td>
+                                            <td>{{x.last_name}}</td>
+                                            <td>{{x.email}}</td> 
+                                            {% if x.is_active %}
+                                            <td><a class="btn btn-primary" onclick="return confirm('Are you sure you want to blockuser this blockuse?')"href="{% url 'blockuser' x.id %}">block</a></td>
+                                            {% else %}
+                                            <td><a class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this unblock?')" href="{% url 'unblock'  x.id %}">unblock</a></td>
+                                            {% endif %}
+                                            <td><a class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this delete?')" href="{% url 'deleteuser' x.id %}">Delete</a></td>
+
+                                        </tr>                
+                                        {% endfor %}  
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest " crossorigin="anonymous"></script>
+        <script src="{% static 'stat/js/datatables-simple-demo.js' %}"></script>
+    </body>
+</html>
+
+
+{% endblock %}
