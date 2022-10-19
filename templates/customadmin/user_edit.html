@@ -48,6 +48,8 @@
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">First Name</th>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">Last Name</th>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">Email</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">priv</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">Is active</th>
                                         </tr>
                                     </thead> 
                                     <tbody>
@@ -59,6 +61,8 @@
                                             <td>{{x.first_name}}</td>
                                             <td>{{x.last_name}}</td>
                                             <td>{{x.email}}</td> 
+                                            <td>{{x.get_role_display}}</td> 
+                                            <td>{{x.is_active}}</td> 
                                             {% if x.is_active %}
                                             <td><a class="btn btn-primary" onclick="return confirm('Are you sure you want to blockuser this blockuse?')"href="{% url 'blockuser' x.id %}">block</a></td>
                                             {% else %}
