@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'orders',
     'django.contrib.gis',
     'customadmin',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

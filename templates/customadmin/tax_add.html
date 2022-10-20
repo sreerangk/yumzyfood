@@ -1,0 +1,68 @@
+
+
+{% extends 'customadmin/admin_nav.html' %}
+
+
+
+
+{% load static %}
+
+    
+    
+{% block content %}
+
+
+<!---end of navbar-->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+
+<!-- pageHeader -->
+
+
+<div id="layoutSidenav_content">
+
+
+<div class="wrapper " style="margin: 10px auto">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <div>
+        <h1>ADD TAX</h1><br>
+      </div>
+      {% for message in messages %}
+      <div id="message" class="container">
+      <li {% if message.tags %} class=" alert alert-{{ message.tags }}"{% endif %} role = "alert">
+          {{ message }}</li>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="container p-5  py-4 bg-light border rounded ">
+    <!-- Login Form -->
+    <form action="{% url 'tax_edit' %}" method="POST">
+        {% csrf_token %}
+    <div class="form-floating mb-3" >
+       
+       <p>Tax type</p> <div class="row">{{form.tax_type}}</div>
+    </div>
+    <div class="form-floating mb-3">
+       
+       <p>Tax Percentage <div class="row">{{form.tax_percentage}}</div></p>
+    </div>
+    <div class="form-check mb-3">
+        
+        <p>Is active {{form.is_active}}</p>
+    
+        <button class="btn btn-primary w-100" >submit</button>
+    </div>
+    </form>
+    </div>
+
+  <!-- Remind Passowrd -->
+
+</div>
+</div>
+</div>
+
+
+{% endblock %}

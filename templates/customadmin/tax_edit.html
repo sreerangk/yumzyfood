@@ -1,0 +1,89 @@
+
+
+{% extends 'customadmin/admin_nav.html' %}
+
+
+
+
+{% load static %}
+
+    
+    
+{% block content %}
+
+
+<!---end of navbar-->
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+
+<!-- pageHeader -->
+
+
+
+
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Tax-details</h1>
+            
+            <div class="card mb-4">
+                <div class="card-body"> 
+                    {% for message in messages %}
+                    <div id="message" class="container">
+                    <li {% if message.tags %} class=" alert alert-{{ message.tags }}"{% endif %} role = "alert">
+                        {{ message }}</li>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    User Details
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class=" font-weight-bolder opacity-7" scope="col">Tax type</th>
+                                <th class=" text-xxs font-weight-bolder opacity-7" scope="col">Tax percentage</th>
+                                <th class=" text-xxs font-weight-bolder opacity-7" scope="col">Is active </th>
+                               
+                            </tr>
+                        </thead> 
+                        <tbody>
+                            {% for i in tax %}
+                            <tr>
+
+                                <th>{{i.tax_type}}</th>
+                                <td>{{i.tax_percentage}}%</td>
+                                <td>{{i.is_active}}</td>
+                          
+                                <td><a class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this delete?')" href="{% url 'tax_delete' i.id %}">Delete</a></td>
+
+                            </tr>                
+                            {% endfor %}  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+
+
+{% endblock %}

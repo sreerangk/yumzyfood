@@ -11,6 +11,9 @@ urlpatterns = [
     path('blockuser/<int:id>',views.blockuser,name='blockuser'),
     path('unblock/<int:id>',views.unblock,name='unblock'),
     path('deleteuser/<int:id>',views.deleteuser,name='deleteuser'),
-  
-
+    path('tax_edit/',views.tax_edit,name='tax_edit'),
+    path('tax_add/', views.tax_add, name='tax_add'),
+    path('tax_delete/<int:id>', views.tax_delete, name='tax_delete'),
+    
+   
 ]
