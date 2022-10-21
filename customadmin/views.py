@@ -1,13 +1,19 @@
+from contextvars import Context
 from django.http import HttpResponse
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 
 
 from django.contrib import messages, auth
 from psycopg2 import IntegrityError
-from accounts.models import User
+from accounts.forms import UserProfileForm
+from accounts.models import User, UserProfile
 from django.contrib.auth.decorators import login_required
 from customadmin import forms
 from marketplace.models import Tax
+from orders.models import Order
+import vendor
+from vendor.forms import VendorForm
+from vendor.models import Vendor
 from .forms import AddTaxForm
 
 from django.contrib.auth.decorators import user_passes_test
@@ -109,8 +115,9 @@ def tax_add(request):
                 is_active = form.cleaned_data['is_active']
                 tax = Tax.objects.create(tax_type=tax_type, tax_percentage=tax_percentage, is_active=is_active)
             
-               
+                
                 tax.save()
+                messages.success(request, 'Tax adedd succesfully!')
                 return redirect('tax_add')
         except IntegrityError as e:    
             messages.error(request, 'tax name already exists!')
@@ -140,3 +147,84 @@ def tax_delete(request,id):
     tax.delete()
     messages.success(request, 'Delete user successfully')
     return redirect('tax_edit')
+
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def order_details(request):
+    if request.user.is_authenticated:
+        order = Order.objects.all()
+        context = {'order':order}
+        return render(request, 'customadmin/order_details.html',context)
+    else:
+        return redirect('admin_login')
+   
+   
+   
+# ------------------------------vendorApproval----------------------------
+
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def vendor_approval(request):
+    if request.user.is_authenticated:
+        vendor = Vendor.objects.all()
+        context = {
+            'vendor':vendor,
+            
+        }
+        return render(request, 'customadmin/vendor_approval.html',context)
+    else:
+        return redirect('admin_index')
+    
+    
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin) 
+def vendor_profile(request,id):
+    if request.user.is_authenticated:
+        vendor = Vendor.objects.get(id=id)
+        form=VendorForm(request.POST, request.FILES,instance=vendor)
+        try:
+            if form.is_valid():
+                user = form.cleaned_data['user']
+                vendor_name = form.cleaned_data['vendor_name']
+                vendor_license = form.cleaned_data['vendor_license']
+                
+                is_approved = form.cleaned_data['is_approved']
+                vendor = Vendor.objects.create(vendor_licens=vendor_license,user=user,vendor_name=vendor_name,is_approved=is_approved)
+            
+                
+                vendor.save()
+              
+                return redirect('vendor_profile')
+        except:
+            messages.error(request, 'tax name already exists!')
+            return redirect('vendor_profile')
+    else:
+        form=VendorForm(instance=vendor)
+    context = {
+        'form': form,
+     
+        'vendor':vendor,
+        
+    }
+     
+    return render(request,'customadmin/vendor_profile.html',context)
+
+
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def activate_vendor(request,id):
+    vendor = Vendor.objects.get(id=id)
+    vendor.is_approved = True
+    vendor.save()
+    messages.success(request, 'approved vendor successfully')
+    return redirect('vendor_approval')
+
+
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def deactivate_vendor(request,id):
+    vendor = Vendor.objects.get(id=id)
+    vendor.is_approved = False
+    vendor.save()
+    messages.success(request, 'Denied vendor successfully')
+    return redirect('vendor_approval')
