@@ -1,10 +1,12 @@
+import simplejson as json
 from multiprocessing import context
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserInfoForm, UserProfileForm
 from accounts.models import UserProfile
-from orders.models import Order
+from orders.models import Order, OrderedFood
+from json import loads
 
 # Create your views here.
 @login_required(login_url='login')
@@ -42,5 +44,21 @@ def my_orders(request):
     } 
     return render(request, 'customers/my_orders.html',context)
 
-def order_detail(request,order_number):
-    return render(request, 'customers/order_detail.html')
+def order_detail(request, order_number):
+    try:
+        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        ordered_food = OrderedFood.objects.filter(order=order)
+        subtotal = 0
+        for item in ordered_food:
+            subtotal += (item.price * item.quantity)
+        
+        context = {
+            'order': order,
+            'ordered_food': ordered_food,
+            'subtotal': subtotal,
+           
+        }
+        return render(request, 'customers/order_detail.html', context)
+    except:
+        return redirect('customer')
+    
