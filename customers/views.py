@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserInfoForm, UserProfileForm
 from accounts.models import UserProfile
+from orders.models import Order
 
 # Create your views here.
 @login_required(login_url='login')
@@ -30,3 +31,16 @@ def cprofile(request):
         'profile' : profile,
     }
     return render(request, 'customers/cprofile.html', context)
+
+
+def my_orders(request):
+    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
+    
+    context = {
+        'orders': orders,
+        
+    } 
+    return render(request, 'customers/my_orders.html',context)
+
+def order_detail(request,order_number):
+    return render(request, 'customers/order_detail.html')
