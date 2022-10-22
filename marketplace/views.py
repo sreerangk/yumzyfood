@@ -156,7 +156,7 @@ def search(request):
         longitude = request.GET['lng']
         radius = request.GET['radius']
         keyword = request.GET['keyword']
-
+        radius=10
         #get vendor ids that has food item user islooking for 
         fetch_vendors_by_fooditems = FoodItem.objects.filter(food_title__icontains=keyword, is_available=True).values_list('vendor', flat=True)
         

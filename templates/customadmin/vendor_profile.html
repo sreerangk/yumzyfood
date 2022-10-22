@@ -58,7 +58,7 @@
                         <div class="d-grid gap-2">
                       
                         <td><a class="btn btn-primary" type="button"  onclick="return confirm('Are you sure you want activate vendor?')"href="{% url 'activate_vendor' vendor.id %}">APPROVE</a></td>
-                .       </div>
+                        </div>
                         {% else %}
                         <div class="d-grid gap-2">
                         <td><a class="btn btn-danger" type="button" onclick="return confirm('Are you sure you want to deactivate vendor?')" href="{% url 'deactivate_vendor' vendor.id %}">DENIED</a></td>
