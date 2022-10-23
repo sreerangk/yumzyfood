@@ -271,3 +271,5 @@ def order_detail(request,order_number):
     except:
         return redirect('vendor')
         
+def my_orders(request):
+    return render(request, 'vendors/my_orders.html')

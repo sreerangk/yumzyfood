@@ -216,7 +216,7 @@ def order_complete(request):
             'order': order,
             'ordered_food': ordered_food, 
             'subtotal': subtotal,
-           
+            
           
    
         } 
