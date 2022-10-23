@@ -140,19 +140,35 @@
 
 									</div>
 									<div class="text-holder">
-										
+										{% if vendor.kms < 20 %}
 										<div class="post-title">
 											<h5>
 												<a href="{% url 'vendor_detail' vendor.vendor_slug %}">{{ vendor }}</a>
 											</h5>
 										</div>
+										{% endif %}
+										{% if vendor.kms > 20 %}
+										<div class="post-title">
+											<h5>
+												<a onclick="return confirm('Sorry Delivery is avilable in your location we cant proceed')" href="/">{{ vendor }}
+													
+												</a>
+											</h5>
+										</div>
+										{% endif %}
+
 										{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pin_code %}
 										<span>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}</span>
 										{% endif %}
 
-										{% if vendor.kms %}
+										{% if vendor.kms < 20 %}
 											<br>
 											<span><small><b>{{vendor.kms}} km </b>away</small></span>
+											<span style="color:rgb(13, 195, 23) ;"> Delivery is avilable in your location</span>
+										{% endif %}
+										{% if vendor.kms > 20 %}
+										<br>
+										<span style="color:red ;width:20px;" ><small><b>{{vendor.kms}} km </b>away. Sorry currently delivery is not available in your location</small></span>
 										{% endif %}
 									</div>
 									<div class="list-option">
@@ -163,12 +179,7 @@
 								</div>
 							</li>
 							{% endfor %}
-							
-							
-							
-							
-							
-
+			
 						</ul>
 					</div>
 				</div>

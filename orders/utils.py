@@ -1,4 +1,5 @@
 import datetime
+import simplejson as json
 
 
 def generate_order_number(pk):

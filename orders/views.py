@@ -11,7 +11,7 @@ from menu.models import FoodItem
 from .forms import OrderForm
 from .models import Order, OrderedFood, Payment
 import simplejson as json 
-from .utils import generate_order_number
+from .utils import generate_order_number,order_total_by_vendor
 from django.contrib.auth.decorators import login_required
 import razorpay
 from foodOnlin_main.settings import RZP_KEY_ID,RZP_KEY_SECRET
@@ -179,6 +179,7 @@ def payments(request):
         for i in cart_items:
             if i.fooditem.vendor.user.email not in to_emails: 
                 to_emails.append(i.fooditem.vendor.user.email)
+                
   
         context = {
             'order': order,
@@ -216,7 +217,7 @@ def order_complete(request):
             'order': order,
             'ordered_food': ordered_food, 
             'subtotal': subtotal,
-            
+           
           
    
         } 
