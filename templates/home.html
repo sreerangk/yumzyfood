@@ -7,7 +7,7 @@
 <div class="main-section">
 	<!-- Home Pages Elements Strat -->
 	<!-- Main Search Start -->
-	<div class="page-section nopadding cs-nomargin main-search-bar" style="padding-top: 200px; padding-bottom: 150px; margin-bottom: 0px; background:  no-repeat center / cover;">
+	<div class="page-section nopadding cs-nomargin main-search-bar" style="padding-top: 200px; padding-bottom: 150px; margin-bottom: 0px; background:url(https://cdn.pixabay.com/photo/2022/04/30/19/12/cooking-banner-7166200__340.jpg)  no-repeat center / cover;" >
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -140,23 +140,17 @@
 
 									</div>
 									<div class="text-holder">
-										{% if vendor.kms < 20 %}
+										
 										<div class="post-title">
 											<h5>
 												<a href="{% url 'vendor_detail' vendor.vendor_slug %}">{{ vendor }}</a>
 											</h5>
 										</div>
-										{% endif %}
-										{% if vendor.kms > 20 %}
-										<div class="post-title">
-											<h5>
-												<a onclick="return confirm('Sorry Delivery is avilable in your location we cant proceed')" href="/">{{ vendor }}
-													
-												</a>
-											</h5>
-										</div>
-										{% endif %}
+										
+									
+									
 
+										
 										{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pin_code %}
 										<span>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}</span>
 										{% endif %}
