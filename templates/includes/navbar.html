@@ -11,14 +11,14 @@
                         <div class="logo">
                             <figure>
                                 <a href="{% url 'home' %}" class="light-logo">
-                                    <img style="width: 124px;" src="https://res.cloudinary.com/dmabeivkl/image/upload/w_800,fl_lossy,f_auto/v1599564390/main-image/uyhji8rlbiqjmphel3k2.png" alt="FoodOnline" width="250">
+                                    <img style="width: 124px; margin-left: 50px" src="https://res.cloudinary.com/dmabeivkl/image/upload/w_800,fl_lossy,f_auto/v1599564390/main-image/uyhji8rlbiqjmphel3k2.png" alt="FoodOnline" width="250">
                                 </a>
                             </figure>
                         </div>
                         
                        
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
                         <div class="login-option">
                             {% if user.is_authenticated %}
                             <a href="{% url 'cart' %}">
@@ -32,7 +32,7 @@
                             <a class="cs-color cs-popup-joinus-btn login-popup text-danger" href="{% url 'logout' %}">Logout</a>
                             {% else %}
                             <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'login' %}">Login</a> / 
-                                <span><a href="{% url 'registerUser'%}" class="cs-color cs-popup-joinus-btn login-popup ml-0">Register</a></span>
+                                <span><a href="{% url 'registerUser'%}" class="cs-color cs-popup-joinus-btn login-popup mr-5">Register</a></span>
                             {% endif %}
                         </div>
                     </div>
