@@ -12,7 +12,7 @@ request_object = ''
 class Payment(models.Model):
     PAYMENT_METHOD = (
         ('PayPal', 'PayPal'),
-        ('RazorPay', 'RazorPay'), # Only for Indian Students.
+        ('RazorPay', 'RazorPay'), 
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     transaction_id = models.CharField(max_length=100)

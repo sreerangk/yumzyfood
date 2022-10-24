@@ -114,7 +114,6 @@ def edituser_single(request,id):
         if request.method=='POST':
             form=UserForm(request.POST, instance=profile)
             if form.is_valid():
-
                 form.save()
                 messages.success(request, 'updated success fully')
                 return render(request, 'customadmin/edituser_single.html',context)
