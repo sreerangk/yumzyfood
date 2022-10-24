@@ -103,6 +103,7 @@ def deleteuser(request,id):
     return redirect('user_edit')
 
 
+@user_passes_test(lambda u: u.is_superadmin)
 def edituser_single(request,id): 
 
     profile = User.objects.get(id=id)
