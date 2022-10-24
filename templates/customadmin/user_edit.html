@@ -68,6 +68,7 @@
                                             {% else %}
                                             <td><a class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this unblock?')" href="{% url 'unblock'  x.id %}">unblock</a></td>
                                             {% endif %}
+                                            <td><a class="btn btn-primary" href="{% url 'edituser_single' x.id %}">edit</a></td>
                                             <td><a class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this delete?')" href="{% url 'deleteuser' x.id %}">Delete</a></td>
 
                                         </tr>                

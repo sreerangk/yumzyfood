@@ -1,0 +1,67 @@
+{% extends 'customadmin/admin_nav.html' %}
+
+
+{% load static %}
+
+    
+    
+{% block content %}
+
+
+<div class="container py-5 mt-5">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+      <div class="card" style="border-radius: 15px;">
+        <div class="card-body p-5">
+          <h2 class="text-uppercase text-center mb-5">EDIT ACCOUNT</h2>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-floating mb-3" >
+              <p>Firat Name</p> <div class="row">{{form.username}}</div>
+           </div>
+           <div class="form-floating mb-3" > 
+            <p>First Name</p> <div class="row">{{form.first_name}}</div>
+          </div>
+         <div class="form-floating mb-3" > 
+          <p>Last Name</p> <div class="row">{{form.last_name}}</div>
+        </div>
+        <div class="form-floating mb-3" > 
+          <p>Phone Number</p> <div class="row">{{form.phone_number}}</div>
+       </div>
+         <div class="form-floating mb-3" >
+       
+          <p>Email</p> <div class="row">{{form.email}}</div>
+         </div>
+         
+           <div class="form-floating mb-3">
+              
+              <p>{{form.is_active}} Is active</div></p>
+              <div class="form-floating mb-3">
+              
+                <p>{{form.is_admin}} Is Admin</div></p>
+                <div class="form-floating mb-3">
+              
+                  <p>{{form.is_staff}} Is staff</div></p>
+                  <div class="form-floating mb-3">
+              
+                    <p>{{form.is_active}} Is staff</div></p>
+          
+                    <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+            {% for message in messages %}
+            <div id="message" class="container">
+            <li {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role = "alert">
+                {{ message }}</li>
+            </div>
+            {% endfor %}
+          </form>
+          </div>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+ 
+{% endblock %}

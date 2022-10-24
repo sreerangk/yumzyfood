@@ -100,6 +100,7 @@
                                             {% else %}
                                             <td><a class="btn btn-primary" href="{% url 'unblock'  x.id %}">unblock</a></td>
                                             {% endif %}
+                                            <td><a class="btn btn-primary" href="{% url 'edituser_single' x.id %}">edit</a></td>
                                             <td><a class="btn btn-primary" href="{% url 'deleteuser' x.id %}">Delete</a></td>
 
                                         </tr>                

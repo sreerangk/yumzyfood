@@ -1,4 +1,5 @@
 from contextvars import Context
+import profile
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render,redirect
 
@@ -14,7 +15,7 @@ from orders.models import Order
 import vendor
 from vendor.forms import VendorForm
 from vendor.models import Vendor
-from .forms import AddTaxForm
+from .forms import AddTaxForm, UserForm
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -49,7 +50,9 @@ def admin_login(request):
 def admin_index(request):
     if request.user.is_authenticated:
         user = User.objects.all()
-        context = {'user':user}
+        context = {
+            'user':user
+            }
         return render(request, 'customadmin/admin_index.html', context)
     else:
         return redirect('admin_login')
@@ -100,7 +103,27 @@ def deleteuser(request,id):
     return redirect('user_edit')
 
 
+def edituser_single(request,id): 
 
+    profile = User.objects.get(id=id)
+    form=UserForm(instance=profile)
+    context = {
+        'form':form,
+    }
+    try:
+        if request.method=='POST':
+            form=UserForm(request.POST, instance=profile)
+            if form.is_valid():
+
+                form.save()
+                messages.success(request, 'updated success fully')
+                return render(request, 'customadmin/edituser_single.html',context)
+    except:    
+        messages.error(request, 'somthing wrong please check again')
+        return redirect('edituser_single')
+    
+  
+    return render(request, 'customadmin/edituser_single.html',context)
 # --------------------------------------------------------------------------------
 
 @login_required(login_url='login')
