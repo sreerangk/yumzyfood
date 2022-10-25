@@ -51,7 +51,7 @@
                                 <div class="card bg-danger text-white mb-4">
                                     <div class="card-body">Order</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="">View OrderDetails</a>
+                                        <a class="small text-white stretched-link" href="{% url 'order_details' %}">View OrderDetails</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -95,13 +95,7 @@
                                             <td>{{x.first_name}}</td>
                                             <td>{{x.last_name}}</td>
                                             <td>{{x.email}}</td> 
-                                            {% if x.is_active %}
-                                            <td><a class="btn btn-primary" href="{% url 'blockuser' x.id %}">block</a></td>
-                                            {% else %}
-                                            <td><a class="btn btn-primary" href="{% url 'unblock'  x.id %}">unblock</a></td>
-                                            {% endif %}
-                                            <td><a class="btn btn-primary" href="{% url 'edituser_single' x.id %}">edit</a></td>
-                                            <td><a class="btn btn-primary" href="{% url 'deleteuser' x.id %}">Delete</a></td>
+                                          
 
                                         </tr>                
                                         {% endfor %}        
