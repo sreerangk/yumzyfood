@@ -23,27 +23,39 @@
                             Total Admin count
                         </div>
                         <div class="card-body text-center">
-                            <a href="#"><h5 class="card-title">{{ customer_count }}</h5></a>
+                           <h5 class="card-title">{{ admin_count }}</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="card-header">
-                            Total customer count
+                            Total Vendors count
                         </div>
                         <div class="card-body text-center">
-                            <a href="#"><h5 class="card-title">${{total_revenue | floatformat:2}}</h5></a>
+                            <h5 class="card-title">{{ vendor_count }}</h5>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="card-header">
-                            Last Month
+                           Total Customer count 
                         </div>
                         <div class="card-body text-center">
-                            <a href="#"><h5 class="card-title">${{ current_month_revenue | floatformat:2}}</h5></a>
+                            <h5 class="card-title">{{customer_count}}</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mt-5">
+                    <div class="card">
+                        <div class="card-header">
+                          <h4> Total </h4>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{total}}</h5>
                         </div>
                     </div>
                 </div>

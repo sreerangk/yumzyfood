@@ -333,9 +333,15 @@ def details(request):
 @login_required(login_url='login')
 @user_passes_test(lambda u: u.is_superadmin)
 def staff_details(request):
-    customer_count= User.objects.filter(is_admin=True).count()
-    
+    admin_count= User.objects.filter(is_admin=True).count()
+    vendor_count = User.objects.filter(is_active=True, role=1).count()
+    customer_count = User.objects.filter(is_active=True, role=2).count()
+    total = admin_count+vendor_count+customer_count
     context = {
+        'admin_count':admin_count,
+        'vendor_count':vendor_count,
         'customer_count':customer_count,
+        'total':total,
     }
+  
     return render(request,'customadmin/staff_details.html', context)
