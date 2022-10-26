@@ -13,9 +13,12 @@
     <div class="col-12 col-md-9 col-lg-7 col-xl-6">
       <div class="card" style="border-radius: 15px;">
         <div class="card-body p-5">
+          
           <h2 class="text-uppercase text-center mb-5">Order Details</h2>
+          
           <form action="" method="POST" enctype='multipart/form-data'>
             {% csrf_token %}
+            
             <div class="form-floating mb-3" >
               <p>User</p> <div class="row">{{form.user}}</div>
            </div>
@@ -55,17 +58,11 @@
                 <p>{{form.is_ordered}} Is Ordered</div></p>
                 <div class="form-floating mb-3">
               
-          
-                    <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary">SUBMIT</button>
-            </div>
-            {% for message in messages %}
-            <div id="message" class="container">
-            <li {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role = "alert">
-                {{ message }}</li>
-            </div>
-            {% endfor %}
+  
+                 
           </form>
+          <a class="btn btn-secondary"  href="{% url 'order_details' %}">Back</a>
+          
           </div>
            </div>
           </div>

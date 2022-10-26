@@ -181,31 +181,22 @@ def order_details(request):
         context = {'order':order}
         return render(request, 'customadmin/order_details.html',context)
     else:
-        return redirect('admin_login')
+        return redirect('order_details')
    
 @login_required(login_url='login')
 @user_passes_test(lambda u: u.is_superadmin)
 def edit_order(request,id):
-    try:
-        order = Order.objects.get(id=id)
-        form = OrderForm(instance=order)
+   
+    order = Order.objects.get(id=id)
+    form = OrderForm(instance=order)
 
-        if request.method=='POST':
-            form = OrderForm(request.POST , instance=order)
-            if form.is_valid():         
-                form.save() 
-                messages.success(request, 'Order edited success fully')
-                return redirect('edit_order')
-        context = {
-            'order':order,
-            'form':form,
-            
-        }
-        return render(request, 'customadmin/edit_order.html',context)
-    except:
-        messages.error(request, 'somthing wrong please check again')
-        return redirect('edituser_single')
     
+    context = {
+        'order':order,
+        'form':form,
+        
+    }
+    return render(request, 'customadmin/edit_order.html',context)
 
 
        
