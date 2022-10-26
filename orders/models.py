@@ -30,6 +30,7 @@ class Order(models.Model):
         ('New', 'New'),
         ('Accepted', 'Accepted'),
         ('Completed', 'Completed'),
+        ('Delivered','Delivered'),
         ('Cancelled', 'Cancelled'),
     )
 

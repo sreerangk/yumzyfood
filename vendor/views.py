@@ -1,9 +1,11 @@
 from gettext import Catalog
 from multiprocessing import context
+import re
 from unicodedata import category
 from urllib import response
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404,render,redirect
+from customadmin.forms import OrderForm
 
 from orders.models import Order, OrderedFood
 
@@ -260,16 +262,60 @@ def order_detail(request,order_number):
         order = Order.objects.get(order_number=order_number, is_ordered=True)
         ordered_food = OrderedFood.objects.filter(order=order, fooditem__vendor=get_vendor(request))
         
+        # form = OrderForm(instance=order)
+        # if request.method == 'POST':
+        
+        #         form = OrderForm(request.POST , instance=form)
+        #         if form.is_valid():         
+        #             form.save()
+        #             messages.success(request, 'blocked user successfully')
+        #             return redirect('order_detail')
+        
         context = {
+            # 'form':form,
             'order': order,
             'ordered_food': ordered_food,
             'subtotal': order.get_total_by_vendor()['subtotal'],
             'tax_data': order.get_total_by_vendor()['tax_dict'],
             'grand_total': order.get_total_by_vendor()['grand_total'],
         }
+        
         return render(request, 'vendor/order_detail.html',context)
     except:
         return redirect('vendor')
+        
+def order_status(request,order_number):
+    url = request.META.get('HTTP_REFERER')
+    order_item = Order.objects.get(order_number=order_number)
+        
+    if  order_item.status == 'New':
+        order_item.status = 'Accepted'
+    elif order_item.status == 'Accepted':
+        order_item.status = 'Completed'
+    elif order_item.status == 'Completed':
+        order_item.status = 'Delivered'
+    elif  order_item.status == 'Cancelled':
+        order_item.status = 'Cancelled'
+        # if order_item.status == 'delivered':
+        #     if order_item.is_paid == False:
+        #         order_item.is_paid = True
+        #         order_item.save()
+        
+    order_item.save()
+    return redirect(url)
+        
+
+
+def cancel_order(request,order_number):
+    url = request.META.get('HTTP_REFERER')
+    order = Order.objects.get(order_number=order_number)
+    if order.status != 'delivered':
+        print(order.status)
+        print(id)
+        order.status = 'Cancelled'
+        order.save()
+    return redirect(url)
+
         
 def my_orders(request):
     vendor = Vendor.objects.get(user=request.user)

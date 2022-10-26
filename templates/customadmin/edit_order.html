@@ -1,0 +1,77 @@
+{% extends 'customadmin/admin_nav.html' %}
+
+
+{% load static %}
+
+    
+    
+{% block content %}
+
+
+<div class="container py-5 mt-5">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+      <div class="card" style="border-radius: 15px;">
+        <div class="card-body p-5">
+          <h2 class="text-uppercase text-center mb-5">Order Details</h2>
+          <form action="" method="POST" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="form-floating mb-3" >
+              <p>User</p> <div class="row">{{form.user}}</div>
+           </div>
+           <div class="form-floating mb-3" > 
+            <p>Payment</p> <div class="row">{{form.payment}}</div>
+          </div>
+         <div class="form-floating mb-3" > 
+          <p>Vendors</p> <div class="row">{{form.vendors}}</div>
+        </div>
+        <div class="form-floating mb-3" > 
+            <p>Order Number</p> <div class="row">{{form.order_number}}</div>
+          </div>
+        <div class="form-floating mb-3" > 
+          <p>Phone Number</p> <div class="row">{{form.phone}}</div>
+       </div>
+       <div class="form-floating mb-3" > 
+        <p>Address</p> <div class="row">{{form.address}}</div>
+     </div>
+     <div class="form-floating mb-3" > 
+        <p>City</p> <div class="row">{{form.city}}</div>
+     </div>
+     <div class="form-floating mb-3" > 
+        <p>Total</p> <div class="row">{{form.total}}</div>
+     </div>
+         <div class="form-floating mb-3" >
+          <p>Total tax</p> <div class="row">{{form.total_tax}}</div>
+         </div>
+         <div class="form-floating mb-3" >
+            <p>Payment Method</p> <div class="row">{{form.payment_method}}</div>
+           </div>
+           <div class="form-floating mb-3" >
+            <p>status</p> <div class="row">{{form.status}}</div>
+           </div>
+         
+              <div class="form-floating mb-3">
+              
+                <p>{{form.is_ordered}} Is Ordered</div></p>
+                <div class="form-floating mb-3">
+              
+          
+                    <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+            {% for message in messages %}
+            <div id="message" class="container">
+            <li {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role = "alert">
+                {{ message }}</li>
+            </div>
+            {% endfor %}
+          </form>
+          </div>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+ 
+{% endblock %}

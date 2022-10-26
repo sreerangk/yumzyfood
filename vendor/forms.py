@@ -1,6 +1,7 @@
 from django import forms
 from .models import Vendor,OpeningHour
 from accounts.validators import allow_only_images_validator
+from orders.models import Order
 
 
 class VendorForm(forms.ModelForm):
@@ -14,3 +15,14 @@ class OpeningHourForm(forms.ModelForm):
     class Meta:
         model = OpeningHour
         fields = ['day', 'from_hour', 'to_hour', 'is_closed']
+        
+        
+
+# class OrderStatusform(forms.ModelForm):
+#     class Meta:
+#         model=Order
+#         fields=['status']
+#     def __init__(self, *args, **kwargs):
+#         super(OrderStatusform, self).__init__(*args, **kwargs)
+#         self.fields['status'].widget.attrs.update({'class': 'form-control'})
+        

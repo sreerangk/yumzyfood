@@ -62,6 +62,7 @@
                                             <td>{{x.last_name}}</td>
                                             <td>{{x.email}}</td> 
                                             <td>{{x.is_ordered}}</td> 
+                                            <td><a class="btn btn-primary" href="{% url 'edit_order' x.id %}">Edit</a></td>
                                         </tr>                
                                         {% endfor %}  
                                     </tbody>

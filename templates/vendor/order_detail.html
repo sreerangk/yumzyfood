@@ -104,6 +104,51 @@
                                                                 <span id="total">{{ grand_total }}</span>
                                                             </span>
                                                         </li>
+                                                        <!-- <form class="forms-sample" action=""  enctype='multipart/form-data'method="POST">
+                                                            {% csrf_token %}
+                                                        <div class="form-floating mb-3" >
+                                                            {{form.as_p}}
+                                                           </div>
+                                                        <td><a href="" class="btn btn-danger">Update</a></td>
+                                                        </form>
+                                                        <div>
+                                                            {% for message in messages %}
+                                                            <div class="alert alert-danger">{{message}}</div>
+                                                            {% endfor %}
+                                                        </div> -->
+                                                       
+                                                        <tr>
+                                                           
+                                                            {% if order.status == 'New' %}
+                                                            <td><a>approve as : <a class="btn btn-success"href="{% url 'order_status' order.order_number %}" >Shipped</a></a></td>
+                                                            {% elif order.status == 'Accepted' %}
+                                                            <td><a>approve as : <a class="btn btn-warning" href="{% url 'order_status' order.order_number %}">Out for Delivery</a></a></td>
+                                                            
+                                                            {% elif order.status == 'Completed' %}
+                                                            <td><a>approve as :<a class="btn btn-danger" href="{% url 'order_status' order.order_number %}"> Delivered</a></a></td>
+                                                            
+                                                            {% elif order.status == 'Delivered' %}
+                                                            <td>Product Delivered</td>
+                                                            {% elif order.status == 'Cancelled' %}
+                                                            <td>Order Cancelled</td>
+                                                            
+                                                            {% endif %}
+                                                           
+                                                            <td>{{order.created_at}}</td>
+                                                              
+                                                        </tr>
+                                                        <tr>
+                                                            {% if order.status == 'New' %}
+                                                            <td><a>approved : <a class="btn btn-danger"href="{% url 'cancel_order' order.order_number %}" >Cancelled</a></a></td>
+                                                            {% elif order.status == 'Accepted' %}
+                                                            <td><a>approved: <a class="btn btn-danger" href="{% url 'cancel_order' order.order_number %}">Cancelled</a></a></td>
+                                                            
+                                                            {% elif order.status == 'Completed' %}
+                                                            <td><a>approved :<a class="btn btn-danger" href="{% url 'cancel_order' order.order_number %}">Cancelled</a></a></td>
+                                                              
+                                                            {% endif %}
+                                                           
+                                                        </tr>
                                                     </ul>
                                                 </div>
                                             </div>

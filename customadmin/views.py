@@ -1,10 +1,10 @@
 from contextvars import Context
-import profile
-from django.http import HttpResponse
+
 from django.shortcuts import get_object_or_404, render,redirect
 
 
 from django.contrib import messages, auth
+from django.urls import reverse
 from psycopg2 import IntegrityError
 from accounts.forms import UserProfileForm
 from accounts.models import User, UserProfile
@@ -15,7 +15,7 @@ from orders.models import Order
 import vendor
 from vendor.forms import VendorForm
 from vendor.models import Vendor
-from .forms import AddTaxForm, UserForm
+from .forms import AddTaxForm, OrderForm, UserForm
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -171,6 +171,8 @@ def tax_delete(request,id):
     messages.success(request, 'Delete user successfully')
     return redirect('tax_edit')
 
+# -----------------------------------------------------------------------------------------------------
+
 @login_required(login_url='login')
 @user_passes_test(lambda u: u.is_superadmin)
 def order_details(request):
@@ -181,8 +183,32 @@ def order_details(request):
     else:
         return redirect('admin_login')
    
-   
-   
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def edit_order(request,id):
+    try:
+        order = Order.objects.get(id=id)
+        form = OrderForm(instance=order)
+
+        if request.method=='POST':
+            form = OrderForm(request.POST , instance=order)
+            if form.is_valid():         
+                form.save() 
+                messages.success(request, 'Order edited success fully')
+                return redirect('edit_order')
+        context = {
+            'order':order,
+            'form':form,
+            
+        }
+        return render(request, 'customadmin/edit_order.html',context)
+    except:
+        messages.error(request, 'somthing wrong please check again')
+        return redirect('edituser_single')
+    
+
+
+       
 # ------------------------------vendorApproval----------------------------
 
 @login_required(login_url='login')
