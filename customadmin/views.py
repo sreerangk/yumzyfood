@@ -1,4 +1,5 @@
 from contextvars import Context
+import datetime
 
 from django.shortcuts import get_object_or_404, render,redirect
 
@@ -11,7 +12,7 @@ from accounts.models import User, UserProfile
 from django.contrib.auth.decorators import login_required
 from customadmin import forms
 from marketplace.models import Tax
-from orders.models import Order
+from orders.models import Order, OrderedFood
 import vendor
 from vendor.forms import VendorForm
 from vendor.models import Vendor
@@ -268,3 +269,73 @@ def deactivate_vendor(request,id):
     vendor.save()
     messages.success(request, 'Denied vendor successfully')
     return redirect('vendor_approval')
+
+
+
+# -----------------------------------------------------------------------------------------------
+
+
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def revenue(request):
+    vendor = Vendor.objects.all()
+    orders = OrderedFood.objects.filter()
+    order_total = Order.objects.filter(is_ordered=True)
+    total_order_count = order_total.count()
+    print(total_order_count)
+    
+    total_revenue = 0
+    for item in orders :
+        total_revenue += item.amount * item.quantity
+        
+    print(total_revenue)
+    context = {
+        'vendor':vendor,
+        # 'order':orders,
+        # 'total_revenue': total_revenue,
+        'total_order_count':total_order_count,
+        
+    }
+
+    return render(request,'customadmin/revenue.html' ,context)
+
+
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def details(request):
+    orders = OrderedFood.objects.filter()
+    order_total = Order.objects.filter(is_ordered=True)
+    total_order_count = order_total.count()
+   
+    
+    total_revenue = 0
+    for item in orders :
+        total_revenue += item.amount * item.quantity
+        
+    current_month = datetime.datetime.now().month
+    current_month_orders =  OrderedFood.objects.filter(created_at__month=current_month)
+    current_month_revenue = 0
+    for i in current_month_orders:
+        current_month_revenue += i.amount * i.quantity
+
+    context = {
+        'vendor':vendor,
+        'order':orders,
+        'total_revenue': total_revenue,
+        'total_order_count':total_order_count,
+        'current_month_revenue':current_month_revenue,
+        
+    }
+    return render(request,'customadmin/details.html',context)
+
+
+
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def staff_details(request):
+    customer_count= User.objects.filter(is_admin=True).count()
+    
+    context = {
+        'customer_count':customer_count,
+    }
+    return render(request,'customadmin/staff_details.html', context)

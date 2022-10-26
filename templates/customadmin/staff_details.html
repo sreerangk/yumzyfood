@@ -1,0 +1,60 @@
+
+
+{% extends 'customadmin/admin_nav.html' %}
+
+
+
+
+{% load static %}
+
+    
+    
+{% block content %}
+
+<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="margin-left: 300px; margin-top: 100px">
+    <div class="user-dashboard loader-holder">
+        <div class="user-holder">
+            <h5 class="text-uppercase">Overview</h5>
+            <p class="text-right">Logged in as: <b>{{ user.email }}</b></p>
+            <div class="row" >
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Total Admin count
+                        </div>
+                        <div class="card-body text-center">
+                            <a href="#"><h5 class="card-title">{{ customer_count }}</h5></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Total customer count
+                        </div>
+                        <div class="card-body text-center">
+                            <a href="#"><h5 class="card-title">${{total_revenue | floatformat:2}}</h5></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Last Month
+                        </div>
+                        <div class="card-body text-center">
+                            <a href="#"><h5 class="card-title">${{ current_month_revenue | floatformat:2}}</h5></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            
+            
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
