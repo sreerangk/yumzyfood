@@ -137,17 +137,14 @@
                                                             <td>{{order.created_at}}</td>
                                                               
                                                         </tr>
+                                                        <br>
                                                         <tr>
-                                                            {% if order.status == 'New' %}
-                                                            <td><a>approved : <a class="btn btn-danger"href="{% url 'cancel_order' order.order_number %}" >Cancelled</a></a></td>
-                                                            {% elif order.status == 'Accepted' %}
-                                                            <td><a>approved: <a class="btn btn-danger" href="{% url 'cancel_order' order.order_number %}">Cancelled</a></a></td>
-                                                            
-                                                            {% elif order.status == 'Completed' %}
-                                                            <td><a>approved :<a class="btn btn-danger" href="{% url 'cancel_order' order.order_number %}">Cancelled</a></a></td>
+                                                            {% if order.status != 'Cancelled' %}
+                                                            <td><a>Are you want to Cancelled the order<a class="btn btn-danger"href="{% url 'cancel_order' order.order_number %}" >Cancelled</a></a></td>
+                                                  
                                                               
                                                             {% endif %}
-                                                           
+                                                     
                                                         </tr>
                                                     </ul>
                                                 </div>

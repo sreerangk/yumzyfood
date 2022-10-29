@@ -104,6 +104,16 @@
                                                                 <span id="total">{{ order.total }}</span>
                                                             </span>
                                                         </li>
+                                                        <tr>
+                                                            {% if order.status != 'Cancelled' %}
+                                                            <td><a>Are you want to Cancelled the order<a class="btn btn-danger"href="{% url 'cancel_order' order.order_number %}" >Cancelled</a></a></td>
+                                                           
+                                                            {% elif order.status == 'Cancelled' %}
+                                                            <a>Product Cancelled</a>
+                                                              
+                                                            {% endif %}
+                                                            <td>{{order.created_at}}</td>
+                                                        </tr>
                                                     </ul>
                                                 </div>
                                             </div>
