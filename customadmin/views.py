@@ -280,9 +280,11 @@ def deactivate_vendor(request,id):
 def revenue(request):
     vendor = Vendor.objects.all()
     orders = OrderedFood.objects.filter()
+    payment = Order.objects.filter(user=request.user)
+    print(payment)
     order_total = Order.objects.filter(is_ordered=True)
-    total_order_count = order_total.count()
-    print(total_order_count)
+    
+  
     
     total_revenue = 0
     for item in orders :
@@ -293,8 +295,8 @@ def revenue(request):
         'vendor':vendor,
         # 'order':orders,
         # 'total_revenue': total_revenue,
-        'total_order_count':total_order_count,
-        
+        # 'total_order_count':total_order_count,
+        'payment':payment,
     }
 
     return render(request,'customadmin/revenue.html' ,context)
