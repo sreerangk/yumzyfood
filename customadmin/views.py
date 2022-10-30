@@ -312,13 +312,17 @@ def details(request):
     
     total_revenue = 0
     for item in orders :
-        total_revenue += item.amount * item.quantity
+        total_revenue += item.amount * item.quantity 
+    for item in order_total:
+        total_revenue += item.total_tax
         
     current_month = datetime.datetime.now().month
     current_month_orders =  OrderedFood.objects.filter(created_at__month=current_month)
     current_month_revenue = 0
     for i in current_month_orders:
         current_month_revenue += i.amount * i.quantity
+    for item in order_total:
+        current_month_revenue += item.total_tax
 
     context = {
         'vendor':vendor,
