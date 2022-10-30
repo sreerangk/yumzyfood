@@ -19,6 +19,10 @@ from datetime import date, datetime
 from orders.forms import OrderForm
 
 
+from django.contrib import messages
+
+
+
 def marketplace(request):
     vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)
     vendor_count = vendors.count()
@@ -178,7 +182,9 @@ def checkout(request):
     cart_count = cart_items.count()
     if cart_count <= 0:
         return redirect('marketplace')
-    
+    elif cart_count > 1:
+        messages.success(request, 'Multiple restaurents not allowed')
+        return redirect('cart')
     user_profile = UserProfile.objects.get(user=request.user)
     default_values = {
         'first_name': request.user.first_name,
