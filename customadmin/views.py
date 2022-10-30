@@ -279,10 +279,10 @@ def deactivate_vendor(request,id):
 @user_passes_test(lambda u: u.is_superadmin)
 def revenue(request):
     vendor = Vendor.objects.all()
-    orders = OrderedFood.objects.filter()
+    orders = OrderedFood.objects.filter(user=request.user)
     payment = Order.objects.filter(user=request.user)
     print(payment)
-    order_total = Order.objects.filter(is_ordered=True)
+    order_total = Order.objects.filter()
     
   
     
@@ -290,11 +290,14 @@ def revenue(request):
     for item in orders :
         total_revenue += item.amount * item.quantity
         
+    for item in order_total :
+        total_revenue 
+    
     print(total_revenue)
     context = {
         'vendor':vendor,
         # 'order':orders,
-        # 'total_revenue': total_revenue,
+        'total_revenue': total_revenue,
         # 'total_order_count':total_order_count,
         'payment':payment,
     }
