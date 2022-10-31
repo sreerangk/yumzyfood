@@ -183,7 +183,7 @@ def checkout(request):
     if cart_count <= 0:
         return redirect('marketplace')
     elif cart_count > 1:
-        messages.success(request, 'Multiple restaurents not allowed')
+        messages.error(request, 'Multiple restaurents not allowed to checkout')
         return redirect('cart')
     user_profile = UserProfile.objects.get(user=request.user)
     default_values = {
