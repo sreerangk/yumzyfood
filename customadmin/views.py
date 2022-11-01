@@ -63,7 +63,7 @@ def admin_index(request):
 @login_required(login_url='login')
 def admin_logout(request):
     auth.logout(request)
-    return redirect('admin_login')
+    return redirect('login')
 
 
 @login_required(login_url='login')
