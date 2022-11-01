@@ -15,7 +15,7 @@ from accounts.forms import UserProfileForm
 from django.db import IntegrityError
 
 from menu.forms import CategoryForm, FoodItemForm
-from .models import  OpeningHour, UserProfile
+from .models import OpeningHour, UserProfile
 from .models import Vendor
 
 from django.contrib import messages
@@ -326,9 +326,3 @@ def my_orders(request):
        
     }
     return render(request, 'vendor/my_orders.html', context)
-
-
-
-
-
-    
