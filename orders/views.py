@@ -234,26 +234,5 @@ def order_complete(request):
     except:
         return redirect('home')
     
-def cod(request):
-    order_number = request.GET.get('order_no')
-    print(order_number)
-    try:
-        order = Order.objects.get(order_number=order_number, is_ordered=True)
-        ordered_food = OrderedFood.objects.filter(order=order)
 
-        subtotal = 0
-        for item in ordered_food:
-            subtotal += (item.price * item.quantity)
-
-        tax_data = json.loads(order.tax_data)
-        print(tax_data)
-        context = {
-            'order': order,
-            'ordered_food': ordered_food,
-            'subtotal': subtotal,
-            'tax_data': tax_data,
-        }
-        return render(request, 'home.html', context)
-    except:
-        return redirect('home')
     

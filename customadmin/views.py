@@ -308,8 +308,9 @@ def revenue(request):
 @login_required(login_url='login')
 @user_passes_test(lambda u: u.is_superadmin)
 def details(request):
+    current_month = datetime.datetime.now().month
     orders = OrderedFood.objects.filter()
-    order_total = Order.objects.filter(is_ordered=True)
+    order_total = Order.objects.filter(is_ordered=True,created_at__month=current_month)
     total_order_count = order_total.count()
    
     
@@ -319,7 +320,7 @@ def details(request):
     for item in order_total:
         total_revenue += item.total_tax
         
-    current_month = datetime.datetime.now().month
+
     current_month_orders =  OrderedFood.objects.filter(created_at__month=current_month)
     current_month_revenue = 0
     for i in current_month_orders:
