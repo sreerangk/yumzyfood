@@ -209,7 +209,7 @@ def payments(request):
         return JsonResponse(response)
     return HttpResponse('Payments view')
 
-
+@login_required(login_url='login')
 def order_complete(request):
     order_number = request.GET.get('order_no')
     transaction_id = request.GET.get('trans_id')
@@ -233,6 +233,4 @@ def order_complete(request):
         return render(request, 'orders/order_complete.html', context)
     except:
         return redirect('home')
-    
-
     

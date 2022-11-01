@@ -1,6 +1,5 @@
 from django.contrib import admin
-from vendor.models import Vendor, OpeningHour
-
+from vendor.models import  Vendor, OpeningHour
 
 class VendorAdmin(admin.ModelAdmin):
     list_display = ('user', 'vendor_name', 'is_approved', 'created_at')

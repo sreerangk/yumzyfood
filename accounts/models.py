@@ -113,7 +113,9 @@ class UserProfile(models.Model):
             self.location = Point(float(self.longitude), float(self.latitude))
             return super(UserProfile, self).save(*arge, **kwargs)
         return super(UserProfile, self).save(*arge, **kwargs)
-            
+     
+     
+
 
 
 
