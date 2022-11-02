@@ -310,6 +310,7 @@ def revenue(request):
 def details(request):
     current_month = datetime.datetime.now().month
     orders = OrderedFood.objects.filter()
+    last_month = Order.objects.filter(is_ordered=True)
     order_total = Order.objects.filter(is_ordered=True,created_at__month=current_month)
     total_order_count = order_total.count()
    
@@ -317,7 +318,7 @@ def details(request):
     total_revenue = 0
     for item in orders :
         total_revenue += item.amount * item.quantity 
-    for item in order_total:
+    for item in last_month:
         total_revenue += item.total_tax
         
 
