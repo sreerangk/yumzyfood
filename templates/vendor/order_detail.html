@@ -139,7 +139,7 @@
                                                         </tr>
                                                         <br>
                                                         <tr>
-                                                            {% if order.status != 'Cancelled' %}
+                                                            {% if order.status != 'Delivered' and order.status != 'Cancelled' %}
                                                             <td><a>Are you want to Cancelled the order<a class="btn btn-danger"href="{% url 'cancel_order' order.order_number %}" >Cancelled</a></a></td>
                                                   
                                                               
