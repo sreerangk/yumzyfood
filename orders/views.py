@@ -1,11 +1,15 @@
 from urllib import response
+from django.contrib import messages
+from django.views import View
+from django.core.exceptions import ObjectDoesNotExist
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from marketplace.models import Cart, Tax
 from marketplace.context_processors import get_cart_amounts
 from menu.models import FoodItem
-from .forms import OrderForm
-from .models import Order, OrderedFood, Payment
+from .forms import OrderForm, RefundForm
+from .models import Order, OrderedFood, Payment, Refund
 import simplejson as json
 from .utils import generate_order_number, order_total_by_vendor
 from accounts.utils import send_notification
@@ -233,4 +237,45 @@ def order_complete(request):
         return render(request, 'orders/order_complete.html', context)
     except:
         return redirect('home')
+    
+
+class RequestRefundView(View):
+    def get(self, request, *args, **kwargs):
+        form = RefundForm()
+
+        context = {
+            'form':form,
+        }
+        return render(request, 'orders/request_refund.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = RefundForm(request.POST)
+        if form.is_valid():
+            order_number = form.cleaned_data.get('order_number')
+            message = form.cleaned_data.get('message')
+            email = form.cleaned_data.get('email')
+            #edit the order
+            try:
+                order = Order.objects.get(order_number=order_number)
+                if order == 'Cancelled':
+                    order.refund_requested = True
+                    order.save()
+
+                    #store the refund
+                    refund = Refund()
+                    refund.order = order
+                    refund.reason = message
+                    refund.email = email
+                    refund.save()
+                    messages.info(request, 'Your request was received')
+                    return redirect('request-refund') 
+                
+                else:
+                    messages.error(request, 'please check the order somthing wrong')
+                    return redirect('request-refund') 
+            except ObjectDoesNotExist:
+                messages.error(request, 'This order does not exist')
+                return redirect('request-refund')    
+
+
     

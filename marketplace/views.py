@@ -67,7 +67,7 @@ def vendor_detail(request, vendor_slug):
 def add_to_cart(request, food_id):
     if request.user.is_authenticated:
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            
+
             # Check if the food item exists
             try:
                 fooditem = FoodItem.objects.get(id=food_id)

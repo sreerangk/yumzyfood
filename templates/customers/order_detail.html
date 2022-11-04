@@ -105,7 +105,7 @@
                                                             </span>
                                                         </li>
                                                         <tr>
-                                                            {% if order.status != 'Cancelled' %}
+                                                            {% if order.status != 'Cancelled' and order.status != 'Delivered' %}
                                                             <td><a>Are you want to Cancelled the order<a class="btn btn-danger"href="{% url 'cancel_order' order.order_number %}" >Cancelled</a></a></td>
                                                            
                                                             {% elif order.status == 'Cancelled' %}

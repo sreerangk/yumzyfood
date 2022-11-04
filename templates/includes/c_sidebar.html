@@ -4,6 +4,11 @@
             <li class="{% if '/custDashboard/' == request.path or '/customer/' == request.path %}active{% endif %}"><a href="{% url 'customer' %}"><i class="icon-dashboard3"></i>Dashboard</a></li>
             <li class="{% if '/my_orders/' in request.path or '/order_detail/' in request.path %}active{% endif %}"><a href="{% url 'customer_my_orders' %}"><i class="icon-add_shopping_cart"></i>My Orders</a></li>
             <li class="{% if '/profile/' in request.path %}active{% endif %}"><a href="{% url 'cprofile' %}"><i class="icon-build"></i>Profile Settings</a></li>
+            <li class="{% if '/request-refund/' in request.path %}active{% endif %}"><a href="{% url 'request-refund' %}"><i class="bi bi-arrow-clockwise"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                </svg></i>Request Refund</a>
+            </li>
             <li><a class="logout-btn" href="{% url 'logout' %}"><i class="icon-log-out"></i>Signout</a></li>
         </ul>
     </div>

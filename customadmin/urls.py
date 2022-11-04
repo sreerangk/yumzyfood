@@ -24,5 +24,7 @@ urlpatterns = [
     path('edit-order/<int:id>',views.edit_order ,name="edit_order"),
     path('revenue/', views.revenue,name="revenue"),
     path('details/',views.details,name='details'),
-    path('staff-details/',views.staff_details,name='staff_details')
+    path('staff-details/',views.staff_details,name='staff_details'),
+    
+    path('refund_request/', views.refund_request,name="refund_request"),
 ]

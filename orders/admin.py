@@ -1,7 +1,14 @@
 from django.contrib import admin
-from .models import Payment, Order,OrderedFood
+from .models import Payment, Order,OrderedFood, Refund
 
 # Register your models here.
+
+def make_refund_accepted(modeladmin, request, queryset):
+    queryset.update(refund_requested=False, refund_granted=True)
+
+make_refund_accepted.short_description = 'Update orders to refund granted'    
+
+
 
 class OrderedFoodInline(admin.TabularInline):
     model = OrderedFood
@@ -17,3 +24,4 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Payment)
 admin.site.register(Order,OrderAdmin)
 admin.site.register(OrderedFood)
+admin.site.register(Refund)

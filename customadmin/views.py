@@ -12,11 +12,12 @@ from accounts.models import User, UserProfile
 from django.contrib.auth.decorators import login_required
 from customadmin import forms
 from marketplace.models import Tax
-from orders.models import Order, OrderedFood
+from orders.models import Order, OrderedFood, Refund
+
 import vendor
 from vendor.forms import VendorForm
 from vendor.models import Vendor
-from .forms import AddTaxForm, OrderForm, UserForm
+from .forms import AddTaxForm, OrderForm, RefundForm, UserForm
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -356,3 +357,13 @@ def staff_details(request):
     }
   
     return render(request,'customadmin/staff_details.html', context)
+
+
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def refund_request(request):
+    refund = Refund.objects.all()
+    context = {
+        'refund' : refund,
+    }
+    return render(request,'customadmin/refund_request.html' , context)

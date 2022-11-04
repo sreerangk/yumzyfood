@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+<main>
+   
+<div class="main-section">
+    
+    {% include 'customers/cover.html' %}
+    <div class="page-section account-header buyer-logged-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <!-- Load the sidebar here -->
+                    {% include 'includes/c_sidebar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="user-dashboard loader-holder">
+                        <div class="user-holder">
+                           
+                            <div class="container">
+
+                            <h2>Request Refund</h2>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <br>
+                                <button type='submit' class='btn btn-danger'>Submit</button>
+                            </form>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <!-- Load message -->
+                                {% include 'includes/alerts.html' %}
+                            </div>
+                        </div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </main>
+
+{% endblock %}

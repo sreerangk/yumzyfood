@@ -1,8 +1,7 @@
 from django import forms
 from marketplace.models import Tax
 from accounts.models import User
-from orders.models import Order
-
+from orders.models import Order,Refund
 
 
 
@@ -26,3 +25,7 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = ['user','payment','vendors','order_number','phone','email','address','city','total','total_tax','payment_method','status','is_ordered',]       
 
+class RefundForm(forms.Form):
+    class Meta:
+        model = Refund
+        fields = ['order_number','user','email','accepted',]       
