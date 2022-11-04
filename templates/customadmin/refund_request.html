@@ -63,7 +63,7 @@
                                             <td>{{x.order.order_number}}</td>
                                             <td>{{x.email}}</td> 
                                             <td>{{x.order.refund_granted }}</td> 
-                                            <td><a class="btn btn-primary" href="{% url 'edit_order' x.id %}">OPEN</a></td>
+                                            <td><a class="btn btn-primary" href="{% url 'grant_refund' x.id %}">OPEN</a></td>
                                         </tr>                
                                         {% endfor %}  
                                     </tbody>

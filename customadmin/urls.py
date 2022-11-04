@@ -27,4 +27,5 @@ urlpatterns = [
     path('staff-details/',views.staff_details,name='staff_details'),
     
     path('refund_request/', views.refund_request,name="refund_request"),
+    path('grant_refund/<int:id>', views.grant_refund,name="grant_refund"),
 ]

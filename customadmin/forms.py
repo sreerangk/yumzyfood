@@ -25,7 +25,7 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = ['user','payment','vendors','order_number','phone','email','address','city','total','total_tax','payment_method','status','is_ordered',]       
 
-class RefundForm(forms.Form):
+class RefundForm(forms.ModelForm):
     class Meta:
         model = Refund
-        fields = ['order_number','user','email','accepted',]       
+        fields = ['order','reason','accepted','email',]       

@@ -1,0 +1,54 @@
+{% extends 'customadmin/admin_nav.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+    
+    
+{% block content %}
+
+
+<div class="container py-5 mt-5">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+      <div class="card" style="border-radius: 15px;">
+        <div class="card-body p-5">
+          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            <div class="user-dashboard loader-holder">
+                <div class="user-holder">
+                   
+                    <div class="container">
+    
+                      <div class="card-body"> 
+                        {% for message in messages %}
+                        <div id="message" class="row">
+                        <li {% if message.tags %} class=" alert alert-{{ message.tags }}"{% endif %} role = "alert">
+                            {{ message }}</li>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <h2>Request Refund</h2>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <br>
+                        <button type='submit' class='btn btn-danger'>Submit</button>
+                    </form>
+                    <br>
+                    <a class="btn btn-secondary"  href="{% url 'refund_request' %}">Back</a>
+                </div>
+    
+             
+             </div>
+            </div>
+
+          </div>
+          </div>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+ 
+{% endblock %}

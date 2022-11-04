@@ -238,7 +238,7 @@ def vendor_profile(request,id):
               
                 return redirect('vendor_profile')
         except:
-            messages.error(request, 'tax name already exists!')
+            messages.error(request, 'somthing wrong !')
             return redirect('vendor_profile')
     else:
         form=VendorForm(instance=vendor)
@@ -367,3 +367,31 @@ def refund_request(request):
         'refund' : refund,
     }
     return render(request,'customadmin/refund_request.html' , context)
+
+
+
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superadmin)
+def grant_refund(request,id):
+    refund = Refund.objects.get(id=id)
+    print(refund)
+    form = RefundForm(instance=refund)
+    context = {
+        'form':form,
+    }
+    try:
+        if request.method=='POST':
+            form=RefundForm(request.POST, instance=refund)
+            if form.is_valid():
+                
+                form.save()
+                context = {
+                    'form':form,
+                }
+                messages.success(request, 'updated success fully')
+                return render(request, 'customadmin/grant_refund.html',context)
+    except:    
+        messages.error(request, 'somthing wrong please check again')
+        return redirect('grant_refund')
+  
+    return render(request,'customadmin/grant_refund.html' , context)
