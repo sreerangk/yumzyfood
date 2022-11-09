@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['18.180.226.145','127.0.0.1', 'onlinefood.tk','www.onlinefood.tk']
+ALLOWED_HOSTS = ['172.105.33.160','127.0.0.1', 'yumzyfood.ml','www.yumzyfood.ml']
 
 
 # Application definition
