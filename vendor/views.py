@@ -262,14 +262,14 @@ def order_detail(request,order_number):
         order = Order.objects.get(order_number=order_number, is_ordered=True)
         ordered_food = OrderedFood.objects.filter(order=order, fooditem__vendor=get_vendor(request))
         
-        # form = OrderForm(instance=order)
-        # if request.method == 'POST':
+        form = OrderForm(instance=order)
+        if request.method == 'POST':
         
-        #         form = OrderForm(request.POST , instance=form)
-        #         if form.is_valid():         
-        #             form.save()
-        #             messages.success(request, 'blocked user successfully')
-        #             return redirect('order_detail')
+                form = OrderForm(request.POST , instance=form)
+                if form.is_valid():         
+                    form.save()
+                    messages.success(request, 'blocked user successfully')
+                    return redirect('order_detail')
         
         context = {
             # 'form':form,
