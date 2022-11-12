@@ -105,8 +105,8 @@ class UserProfile(models.Model):
     # def full_address(self):
     #     return f'{self.address_line_1}, {self.address_line_2}'
 
-    # def __str__(self):
-    #     return self.user.email
+    def __str__(self):
+        return self.user.email
     
     def save(self, *arge, **kwargs):
         if self.latitude and self.longitude:
