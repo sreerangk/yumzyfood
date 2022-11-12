@@ -39,26 +39,26 @@ class Vendor(models.Model):
                     is_open = False
         return is_open
 
-    # def save(self, *args, **kwargs):
-    #     if self.pk is not None:
-    #         # Update
-    #         orig = Vendor.objects.get(pk=self.pk)
-    #         if orig.is_approved != self.is_approved:
-    #             mail_template = 'accounts/emails/admin_approval_emails.html'
-    #             context = {
-    #                 'user': self.user,
-    #                 'is_approved': self.is_approved,
-    #                 'to_email': self.user.email,
-    #             }
-    #             if self.is_approved == True:
-    #                 # Send notification email
-    #                 mail_subject = "Congratulations! Your restaurant has been approved."
-    #                 send_notification(mail_subject, mail_template, context)
-    #             else:
-    #                 # Send notification email
-    #                 mail_subject = "We're sorry! You are not eligible for publishing your food menu on our marketplace."
-    #                 send_notification(mail_subject, mail_template, context)
-    #     return super(Vendor, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            # Update
+            orig = Vendor.objects.get(pk=self.pk)
+            if orig.is_approved != self.is_approved:
+                mail_template = 'accounts/emails/admin_approval_emails.html'
+                context = {
+                    'user': self.user,
+                    'is_approved': self.is_approved,
+                    'to_email': self.user.email,
+                }
+                if self.is_approved == True:
+                    # Send notification email
+                    mail_subject = "Congratulations! Your restaurant has been approved."
+                    send_notification(mail_subject, mail_template, context)
+                else:
+                    # Send notification email
+                    mail_subject = "We're sorry! You are not eligible for publishing your food menu on our marketplace."
+                    send_notification(mail_subject, mail_template, context)
+        return super(Vendor, self).save(*args, **kwargs)
 
 
 DAYS = [
